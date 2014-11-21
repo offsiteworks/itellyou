@@ -57,7 +57,7 @@ host1	1	1	1	2014/11/21 14:10:23.234
 host1	2	1	0	2014/11/21 14:10:23.245
 ```
 
-### CSV形式の例 (text/csv, text/comma-separated-values)
+### CSV形式の例 (text/csv, comma separated values)
 
 ```
 term,sensor,bright,door,date_time
