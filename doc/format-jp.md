@@ -26,7 +26,7 @@ Javaなど言語によっては `camelCase` との間で相互変換する必要
  {"relay": "relay1", "term": "host1", "sensor": 2, "bright": 1, "door": 0, "date_time": "2014/11/21 14:10:23.245"}]
 ```
 
-## LTSV形式 (text/ltsv)
+## LTSV形式 (text/ltsv, labeled tab separated values)
 
 LTSV形式を2番目の候補とします。
 
@@ -65,7 +65,7 @@ host1,1,1,1,2014/11/21 14:10:23.234
 host1,2,1,0,2014/11/21 14:10:23.245
 ```
 
-※注意：データ内にコンマがある場合についてはrfc4180を参照
+※注意：改行(CRLF)やデータ内にコンマがある場合についてはrfc4180を参照
 ([rfc4180](http://www.kasai.fm/wiki/rfc4180jp))
 
 - - -
