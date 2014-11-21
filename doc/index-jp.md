@@ -4,23 +4,13 @@
 [URL](url-jp.md#readme) -
 [API](api-jp.md#readme)
 
-# ファイル形式
+# ドキュメント
 
-## JSON形式
+# [ファイル形式](format-jp.md#readme)
 
-ファイル形式として、JSON形式を基本とします。
+# [URL](url-jp.md#readme)
 
-## LTSV形式
-
-LTSV形式を2番目の候補とします。
-
-## HTML形式
-
-表示するだけの場合、サーバーで生成したHTML形式も実装可能とします。
-
-## TSV, CSV 他
-
-その他必要に応じて対応します。
+# [API](api-jp.md#readme)
 
 - - -
 

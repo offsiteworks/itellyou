@@ -9,7 +9,7 @@ HTTP/RESTに近い普通のAPIです。
 
 GETメソッド方式とPOSTメソッド方式に対応します。
 
-GETメソッド方式は、引数に `param1=value1&param2=value2` 形式で指定します。
+GETメソッド方式は、引数に `?param1=value1&param2=value2` 形式で指定します。
 結果はFORMATで指定した形式に従って返されます。
 
 POSTメソッド方式は、ボディにJSON形式またはFORMATで指定した形式で指定します。
