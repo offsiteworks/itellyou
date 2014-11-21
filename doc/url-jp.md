@@ -1,4 +1,4 @@
-[home](../readme-jp.md#readme) -
+[home](../README.md#readme) -
 [ドキュメント](index-jp.md#readme) -
 [ファイル形式](format-jp.md#readme) -
 [URL](url-jp.md#readme) -
@@ -50,7 +50,7 @@ URLは以下の形式です。
 
 - - -
 
-[home](../readme-jp.md#readme) -
+[home](../README.md#readme) -
 [ドキュメント](index-jp.md#readme) -
 [ファイル形式](format-jp.md#readme) -
 [URL](url-jp.md#readme) -
