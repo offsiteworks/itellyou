@@ -6,6 +6,7 @@
  * グループ(第1段階では作らない)
  * サイト (ビル)
   * ロケーション
+   * ルーム(個室)
  * ホスト(データとして管理する必要ある？)
   * センサー
  * センサーログ
@@ -52,9 +53,9 @@ users: [
 	 created_by: "user1", created_at: "日付",
 	 updated_by: "user1", updated_at: "日付",
 	},
-	{user_id: "rs", reserved_by: "groups"},
-	{user_id: "mitsuba", reserved_by: "groups"},
-	{user_id: "system", reserved_by: "system"},
+	{user_id: "rs", reserved_for: "groups"},
+	{user_id: "mitsuba", reserved_for: "groups"},
+	{user_id: "system", reserved_for: "system"},
 ]
 ```
 
@@ -73,12 +74,12 @@ groups: [
 	 admin_users: ["user1"],
 	 created_by: "user1", created_at: "日付",
 	 updated_by: "user1", updated_at: "日付",
-	 buildings: [{building_id: "b1-1"}, {building_id: "b1-2"}],
+	 sites: ["b1-1", "b1-2"],
 	},
 	{group_id: "mitsuba", name: "ミツバ", desc: "",
 	 group_type: "public",
 	 admin_users:[{user_id: "user1"}],
-	 buildings: [{building_id: "b2-1"}],
+	 sites: ["b2-1"],
 	},
 ]
 ```
@@ -107,17 +108,17 @@ groups: [
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | 1 | 部屋ID | room_id | 文字列 | 部屋ID | IDは自動生成。半角英数？ |
 | 2 | 部屋名 | name | 文字列 | ビル名 |  |
-| 2 | 種類 | name | 文字列 | 男性用、女性用、障碍者用などなど |  |
-| 3 | 作成者 | created_by | 日時 | 作成者 |  |
-| 3 | 作成日時 | created_at | 日時 | 作成日時 |  |
-| 4 | 更新者 | updated_by | 日時 | 更新者 |  |
-| 4 | 更新日時 | updated_at | 日時 | 更新日時 |  |
-| 4 | 最新 | updated_at | 日時 | 更新日時 |  |
+| 3 | 種類 | type | 文字列 | 男性用、女性用、障碍者用などなど |  |
+| 4 | 作成者 | created_by | 日時 | 作成者 |  |
+| 5 | 作成日時 | created_at | 日時 | 作成日時 |  |
+| 6 | 更新者 | updated_by | 日時 | 更新者 |  |
+| 7 | 更新日時 | updated_at | 日時 | 更新日時 |  |
+| 8 | 状態 | status | 数値 | 空いているかどうか | 0: 空いている、1: 使用中 |
 
 
 ```
-buildings: [
-	{building_id: "b0i2w6wjjl-a76jg24", name: "RS本社ビル", desc: "",
+sites: [
+	{site_id: "b0i2w6wjjl-a76jg24", name: "RS本社ビル", desc: "",
 	 group_id: "rs",
 	 created_by: "user1", created_at: "日付",
 	 updated_by: "user1", updated_at: "日付",
@@ -132,11 +133,11 @@ buildings: [
 			 },
 		 ]},
 	 ]},
-	{building_id: "b0i2w6wjkl-c76jg27", name: "別館",desc: "",
+	{site_id: "b0i2w6wjkl-c76jg27", name: "別館",desc: "",
 	 group_id: "rs",
 	 locations: [
 	 ]},
-	{building_id: "b0i2w6wjml-c76jz27", name: "ミツバ本社",desc: "",
+	{site_id: "b0i2w6wjml-c76jz27", name: "ミツバ本社",desc: "",
 	 group_id: "mitsuba",
 	 locations: [
 	 ]},
@@ -161,7 +162,7 @@ hosts: [
 	 sensors: [
 		{sensor_id: "s701", name: "s701", desc: "",
 		 sensor_type: "light",
-		 building_id: "b0i2w6wjjl-a76jg24",
+		 site_id: "b0i2w6wjjl-a76jg24",
 		 location_id: "l0i2w6wjjl-b45jh45",
 		 room_id: "r0i2w6wjjl-e76jg29",
 		 // または
