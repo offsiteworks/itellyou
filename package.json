@@ -1,0 +1,35 @@
+{
+  "name": "itellyou",
+  "version": "0.0.0",
+  "description": "I tell you vacant toilet",
+  "main": "index.js",
+  "private": true,
+  "keywords": [
+    "toilet"
+  ],
+  "dependencies": {
+    "base-class-extend": "0.0.9",
+    "control-c": "0.0.3",
+    "date-time-string": ">=0.0.4",
+    "express": ">=4.10.4",
+    "log-manager": ">=0.0.6",
+    "log-writer": ">=0.0.4",
+    "socket.io": ">=1.2.1"
+  },
+  "directories": {
+    "doc": "doc"
+  },
+  "homepage": "https://github.com/offsiteworks/itellyou",
+  "bugs": {
+    "url": "https://github.com/offsiteworks/itellyou/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/offsiteworks/itellyou.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "LightSpeedC",
+  "license": "MIT"
+}
