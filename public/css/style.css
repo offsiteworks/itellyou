@@ -1,0 +1,20 @@
+body {
+  padding: 10px;
+  font: 14px "MS ゴシック", "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.online {
+  background-color: green;
+  color: white;
+  font-weight: bold;
+}
+
+.offline {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+}
