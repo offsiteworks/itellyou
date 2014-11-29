@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title><%= title %></title>
+<link rel='stylesheet' href='/css/style.css' />
+</head>
+<body>
+<!--
+<h1><%= title %></h1>
+<p>Welcome to <%= title %></p>
+<hr/>
+-->
+<script>var currTime = new Date().getTime();</script>
+<div id="conn-count" class="unknown">オンライン接続数</div><br/>
+<pre id="container"></pre>
+<script>
+  var VERSION = <%- JSON.stringify(version) %>;
+  var MAX_MESSAGES = <%- max_messages %>;
+  var prmsgs = [];
+
+  // Time 時刻
+  function toTimeString(x) {
+    x = x instanceof Date ? x : this instanceof Date ? this : new Date;
+    return pad2(x.getHours()) + ':' + pad2(x.getMinutes()) + ':' +
+      pad2(x.getSeconds()) + '.' + pad3(x.getMilliseconds()); }
+  function pad2(n) { return ('0'+ n).slice(-2); }
+  function pad3(n) { return ('00'+ n).slice(-3); }
+  function pad(n, m) {
+    return m > 0 ? ('            '+ n).slice(-m) : (n + '            ').slice(0, -m);
+  }
+  function ms(ms) {
+    return pad((ms / 1000).toFixed(3), 12) + '秒 '; }
+  function delta() {
+    var prev = currTime; currTime = Date.now();
+    return toTimeString() + ms(currTime - prev); }
+  var $container = document.getElementById('container');
+  var $connCount = document.getElementById('conn-count');
+  //$connCount.style.backgroundColor = 'gray';
+  //$connCount.style.color = 'white';
+  //$connCount.style.fontWeight = 'bold';
+
+  function pr(msg) {
+    msg = delta() + msg;
+    prmsgs.push(msg);
+    if (!$container) return;
+    var list = $container.childNodes;
+    while (list.length >= MAX_MESSAGES) $container.removeChild(list[0]);
+    while (msg = prmsgs.shift()) {
+      var div = document.createElement('div');
+      div.appendChild(document.createTextNode(msg));
+      $container.appendChild(div);
+    } // while prmsgs
+  } // pr
+  pr('initialized');
+</script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io.connect('http://localhost');
+  // 最初の電文を受信
+  socket.on('first', function (data) {
+    dispCount(data);
+    pr('first:' + JSON.stringify(data));
+    socket.emit('get group', { group_id: 'rs' });
+  });
+  // グループを受信
+  socket.on('response group', function (data) {
+    pr('response group:' + JSON.stringify(data));
+    dispCount(data);
+    for (var i in data.group.sites)
+      for (var j in data.group.sites[i].locations)
+        for (var k in data.group.sites[i].locations[j].rooms)
+          pr([data.group.name, data.group.sites[i].name,
+              data.group.sites[i].locations[j].name,
+              data.group.sites[i].locations[j].rooms[k].name].join(' - '));
+  });
+  // 放送を受信
+  socket.on('broadcast', function (data) {
+    pr('broadcast:' + JSON.stringify(data));
+    dispCount(data);
+  });
+  // ユーザー切断を受信
+  socket.on('user disconnected', function (data) {
+    pr('user disconnected:' + JSON.stringify(data));
+    dispCount(data);
+  });
+  // 切断時
+  socket.on('disconnect', function () {
+    pr('disconnect');
+    dispCount({conn_count: 0});
+  });
+  // 表示
+  function dispCount(data) {
+    pr('dispCount:' + JSON.stringify(data));
+    if (data && data.hasOwnProperty('conn_count')) {
+      var connCount = data.conn_count;
+      $connCount.innerHTML = 'オンライン接続数: ' + connCount +
+        (connCount === 0 ? ' - 切断されています' :
+         connCount === 1 ? ' - あなたひとりだけです' :
+                           ' - あなた以外に何人かいます' ) + VERSION;
+      // $connCount.style.backgroundColor = connCount ? 'green' : 'red';
+      $connCount.className = connCount ? 'online' : 'offline';
+    }
+    if (data && data.hasOwnProperty('version')) {
+      if (data.version !== VERSION) {
+        setTimeout(function () { location.reload(); }, 500);
+        setTimeout(function () { socket.close(); }, 10);
+      }
+    } // version
+  } // dispCount
+</script>
+
+</body>
+</html>
