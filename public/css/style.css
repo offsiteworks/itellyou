@@ -7,14 +7,19 @@ a {
   color: #00B7FF;
 }
 
+/* オンライン接続数 */
 .online {
   background-color: green;
   color: white;
   font-weight: bold;
 }
-
 .offline {
   background-color: red;
+  color: white;
+  font-weight: bold;
+}
+.unknown {
+  background-color: gray;
   color: white;
   font-weight: bold;
 }
