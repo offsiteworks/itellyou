@@ -1,0 +1,56 @@
+@import "bootstrap.less";
+.toilet-base {
+	text-align: center;
+	font-size: 5em;
+}
+
+.toilet-position {
+	.toilet-base;
+	color: @gray-light;
+}
+
+.toilet-status {
+	.toilet-base;
+	color: white;
+	border-radius: @border-radius-large;
+	> .toilet-time {
+		font-size: 0.5em;
+	}
+}
+
+.toilet-occupied {
+	.toilet-status;
+	background-color: red;
+}
+
+.toilet-empty {
+	.toilet-status;
+	background-color: green;
+}
+
+.toilet-unknown {
+	.toilet-status;
+	background-color: gray;
+}
+
+.toilet-light-on {
+	.toilet-base;
+	color: orange;
+}
+
+.toilet-light-off {
+	.toilet-base;
+	color: gray;
+}
+
+.toilet-floor-separator {
+	border-top-width: 1em;
+	border-top-color: silver;
+}
+
+@font-face {
+	font-family: 'Glyphicons Halflings';
+	src: url('../img/glyphicons-halflings-regular.eot.jpg');
+	src: url('../img/glyphicons-halflings-regular.eot.jpg?#iefix') format('embedded-opentype'), url('../img/glyphicons-halflings-regular.woff.jpg') format('woff'), url('../img/glyphicons-halflings-regular.ttf.jpg') format('truetype'), url('../img/glyphicons-halflings-regular.svg.jpg#glyphicons_halflingsregular') format('svg');
+}
+
