@@ -7,6 +7,20 @@ I tell you vacant toilet.
 
 ## [トイレ空いてるよ - デモページ](https://offsiteworks.github.io/itellyou/)
 
+## アプリケーションの起動方法
+
+### サーバの起動
+
+```
+app-start.cmd
+```
+
+### ブラウザの起動
+
+```
+browser-start.cmd
+```
+
 - - -
 
 ## [ドキュメント](doc/index-jp.md#readme)
