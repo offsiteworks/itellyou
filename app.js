@@ -5,7 +5,7 @@
 
   console.log();
 
-  var VERSION = 'v1.6';
+  var VERSION = 'v1.9';
   var MAX_MESSAGES = 10;
   var PORT = 3000;
   var currTime = Date.now(); // or new Date().getTime();
@@ -68,8 +68,11 @@
   console.log(delta() + 'listening starting...');
 
   app.get('/', function (req, res) {
-    res.render('index', {title: 'Express',
-      version: VERSION, max_messages: MAX_MESSAGES});
+    res.render('index', {
+        title: 'トイレ空いてるよ',
+        version: VERSION, 
+        max_messages: MAX_MESSAGES,
+        group: groups[group_id]});
     // res.sendFile(__dirname + '/public/index.html');
     //res.writeHead(200, {'Content-Type': 'text/html; charset=UTF-8'});
     //var str = function () {/**/}.toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
