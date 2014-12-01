@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge, Chrome=1">
+<script>var currTime = new Date().getTime();</script>
 <title><%= title %></title>
 <link rel="stylesheet" href="/css/style.css"/>
 
@@ -15,12 +16,7 @@
 
 </head>
 <body  class="pages">
-<!--
-<h1><%= title %></h1>
-<p>Welcome to <%= title %></p>
-<hr/>
--->
-<script>var currTime = new Date().getTime();</script>
+<h3 align="center"><%= title %></h3>
 <div id="conn-count" class="unknown">オンライン接続数</div>
 <pre id="console-output"></pre>
 <script>
@@ -45,9 +41,6 @@
     return toTimeString() + ms(currTime - prev); }
   var $consoleOutput = document.getElementById('console-output');
   var $connCount = document.getElementById('conn-count');
-  //$connCount.style.backgroundColor = 'gray';
-  //$connCount.style.color = 'white';
-  //$connCount.style.fontWeight = 'bold';
 
   function pr(msg) {
     msg = delta() + msg;
@@ -118,129 +111,48 @@
     } // version
   } // dispCount
 </script>
+<div class="container">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <select name="type" class="col-xs-8 c_item form-control">
+<% for (var i in group.sites) { %>
+      <option id="<%- group.sites[i].site_id %>"><%= group.sites[i].name %></option>
+<% } %>
+    </select>
+  </div>
 
-	<div class="container">
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<select name="type" class="col-xs-8 c_item form-control">
-				<option>RS本社ビル</option>
-				<option>別館</option>
-			</select>
-		</div>
+<% for (var i in group.sites) { %>
+<%   var site = group.sites[i]; %>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<%   for (var j in site.locations) { %>
+<%     var loc = site.locations[j]; %>
+<%     if (j !== 0) { %>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <hr class="toilet-floor-separator" />
+    </div>
+<%     } %>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-position">
+        <%= loc.name %>
+      </div>
+<%     for (var k in loc.rooms) { %>
+<%       var room = loc.rooms[k]; %>
+      <div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-<%- room.status ? 'occupied' : 'empty' %>">
+        <div><%= room.status ? 'used!' : 'empty!' %></div>
+        <div class="toilet-time">2014/11/18 20:04:54</div>
+      </div>
+<%     } %>
+    </div>
+<%   } %>
+  </div>
+<% } %>
 
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-position">
-				7F</div>
-			<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-occupied">
-				<div>used!</div>
-				<div class="toilet-time">2014/11/18 20:04:54</div>
-			</div>
-			<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-empty">
-
-				<div>empty!</div>
-				<div class="toilet-time">2014/11/18 20:04:54</div>
-			</div>
-		</div>
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<hr class="toilet-floor-separator" />
-		</div>
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-position">
-				6F</div>
-			<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-occupied">
-				<div>used!</div>
-				<div class="toilet-time">2014/11/18 20:04:54</div>
-			</div>
-			<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-empty">
-
-				<div>empty!</div>
-				<div class="toilet-time">2014/11/18 20:04:54</div>
-			</div>
-		</div>
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<hr class="toilet-floor-separator" />
-		</div>
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-position">
-				5F</div>
-			<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-occupied">
-				<div>used!</div>
-				<div class="toilet-time">2014/11/18 20:04:54</div>
-			</div>
-			<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-empty">
-
-				<div>empty!</div>
-				<div class="toilet-time">2014/11/18 20:04:54</div>
-			</div>
-		</div>
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<hr class="toilet-floor-separator" />
-		</div>
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-position">
-				4F</div>
-			<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-occupied">
-				<div>used!</div>
-				<div class="toilet-time">2014/11/18 20:04:54</div>
-			</div>
-			<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-empty">
-
-				<div>empty!</div>
-				<div class="toilet-time">2014/11/18 20:04:54</div>
-			</div>
-		</div>
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<hr class="toilet-floor-separator" />
-		</div>
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-position">
-				3F</div>
-			<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-occupied">
-				<div>used!</div>
-				<div class="toilet-time">2014/11/18 20:04:54</div>
-			</div>
-			<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-empty">
-
-				<div>empty!</div>
-				<div class="toilet-time">2014/11/18 20:04:54</div>
-			</div>
-			<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-light-off">
-				light-off</div>
-		</div>
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<hr class="toilet-floor-separator" />
-		</div>
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-position">
-				2F</div>
-			<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-unknown">
-				<div>???</div>
-				<div class="toilet-time">2014/11/18 20:04:54</div>
-			</div>
-			<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-empty">
-
-				<div>empty!</div>
-				<div class="toilet-time">2014/11/18 20:04:54</div>
-			</div>
-			<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-light-on">
-				light-on</div>
-		</div>
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<hr class="toilet-floor-separator style-four" />
-		</div>
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-position">
-				1F</div>
-			<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-occupied">
-				<div>used!</div>
-				<div class="toilet-time">2014/11/18 20:04:54</div>
-			</div>
-			<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-empty">
-
-				<div>empty!</div>
-				<div class="toilet-time">2014/11/18 20:04:54</div>
-			</div>
-		</div>
-	</div>
+<!--
+	<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-light-off">
+		light-off</div>
+	<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-light-on">
+		light-on</div>
+-->
+</div>
 
 </body>
 </html>

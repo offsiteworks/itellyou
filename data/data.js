@@ -22,6 +22,22 @@ module.exports = {
           status: 1,
         }],
       }],
+    }, {
+      site_id: "site-12346",
+      name: "別館",
+      locations: [{
+        location_id: "loc-124",
+        name: "3F男用",
+        rooms: [{
+          room_id: "room-877",
+          name: "A",
+          status: 0,
+        }, {
+          room_id: "room-880",
+          name: "B",
+          status: 1,
+        }],
+      }],
     }],
   }],
 }

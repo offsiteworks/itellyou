@@ -5,7 +5,7 @@
 
   console.log();
 
-  var VERSION = 'v1.9';
+  var VERSION = 'v0.0.0';
   var MAX_MESSAGES = 10;
   var PORT = 3000;
   var currTime = Date.now(); // or new Date().getTime();
