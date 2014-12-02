@@ -79,6 +79,11 @@
     pr('broadcast:' + JSON.stringify(data));
     dispCount(data);
   });
+  // 部屋が更新された
+  socket.on('room changed', function (data) {
+    pr('room changed:' + JSON.stringify(data));
+    //dispCount(data);
+  });
   // ユーザー切断を受信
   socket.on('user disconnected', function (data) {
     pr('user disconnected:' + JSON.stringify(data));
@@ -120,7 +125,10 @@
 
 <% for (var i in group.sites) { %>
 <%   var site = group.sites[i]; %>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<%   var siteSelected = siteSelected || site; %>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+       id="<%- site.site_id %>"
+       style="display:<%- siteSelected === site ? 'inline-block': 'none' %>">
 <%   for (var j in site.locations) { %>
 <%     var loc = site.locations[j]; %>
 <%     if (j !== 0) { %>
@@ -129,12 +137,12 @@
     </div>
 <%     } %>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-position">
-        <%= loc.name %>
-      </div>
-<%     for (var k in loc.rooms) { %>
-<%       var room = loc.rooms[k]; %>
-      <div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-<%- room.status ? 'occupied' : 'empty' %>">
+      <div class="col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-position"
+           id="<%- loc.location_id %>"><%= loc.name %></div>
+<%     for (var k in loc.rooms) {
+         var room = loc.rooms[k]; %>
+      <div class="col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-<%- room.status ? 'occupied' : 'empty' %>"
+           id="<%- room.room_id %>">
         <div><%= room.status ? 'used!' : 'empty!' %></div>
         <div class="toilet-time">2014/11/18 20:04:54</div>
       </div>
