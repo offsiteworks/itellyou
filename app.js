@@ -7,13 +7,13 @@
 
   var VERSION = 'v0.0.0';
   var MAX_MESSAGES = 10;
-  var PORT = 3000;
+  var PORT = process.env.PORT || 3000;
   var currTime = Date.now(); // or new Date().getTime();
 
   var DateTime = require('date-time-string');
   var toTimeString = DateTime.toTimeString;
 
-  console.log(delta() + 'starting...');
+  console.log(delta() + 'starting... port ' + PORT);
   var http = require('http');
   var path = require('path');
   var express = require('express');
