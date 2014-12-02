@@ -40,6 +40,7 @@
     return toTimeString() + ms(currTime - prev); }
   var $connCount = document.getElementById('conn-count');
 
+  var $consoleOutput;
   function pr(msg) {
     msg = delta() + msg;
     prmsgs.push(msg);
@@ -56,6 +57,9 @@
 </script>
 <script src="/socket.io/socket.io.js"></script>
 <script>
+  var group;
+  var rooms = {};
+  var $rooms = {};
   var socket = io.connect(document.location.href);
   // 最初の電文を受信
   socket.on('first', function (data) {
@@ -67,12 +71,19 @@
   socket.on('response group', function (data) {
     pr('response group:' + JSON.stringify(data));
     dispCount(data);
-    for (var i in data.group.sites)
-      for (var j in data.group.sites[i].locations)
-        for (var k in data.group.sites[i].locations[j].rooms)
-          pr([data.group.name, data.group.sites[i].name,
-              data.group.sites[i].locations[j].name,
-              data.group.sites[i].locations[j].rooms[k].name].join(' - '));
+    group = data.group;
+    for (var i in group.sites) {
+      var site = group.sites[i];
+      for (var j in site.locations) {
+        var loc = site.locations[j];
+        for (var k in loc.rooms) {
+          var room = loc.rooms[k];
+          pr([group.name, site.name, loc.name, room.name].join(' - '));
+          rooms[room.room_id] = room;
+          $rooms[room.room_id] = $('#' + room.room_id);
+        }
+      }
+    }
   });
   // 放送を受信
   socket.on('broadcast', function (data) {
@@ -123,15 +134,15 @@
     </select>
   </div>
 
-<% for (var i in group.sites) { %>
-<%   var site = group.sites[i]; %>
-<%   var siteSelected = siteSelected || site; %>
+<% for (var i in group.sites) {
+     var site = group.sites[i];
+     var siteSelected = siteSelected || site; %>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
        id="<%- site.site_id %>"
        style="display:<%- siteSelected === site ? 'inline-block': 'none' %>">
-<%   for (var j in site.locations) { %>
-<%     var loc = site.locations[j]; %>
-<%     if (j !== 0) { %>
+<%   for (var j in site.locations) {
+       var loc = site.locations[j];
+       if (j !== 0) { %>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <hr class="toilet-floor-separator" />
     </div>
@@ -160,9 +171,14 @@
 -->
 </div>
 
+<script>
+  var rooms = {};
+  for 
+</script>
+
 <pre id="console-output"></pre>
 <script>
-  var $consoleOutput = document.getElementById('console-output');
+  $consoleOutput = document.getElementById('console-output');
 </script>
 
 </body>

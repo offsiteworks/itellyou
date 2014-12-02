@@ -12,6 +12,7 @@
 
   var DateTime = require('date-time-string');
   var toTimeString = DateTime.toTimeString;
+  var toDateTimeString = DateTime.toDateTimeString;
 
   console.log(delta() + 'starting... port ' + PORT);
   var http = require('http');
@@ -164,7 +165,7 @@
   for (var i in groups[group_id].sites)
     for (var j in groups[group_id].sites[i].locations)
       for (var k in groups[group_id].sites[i].locations[j].rooms)
-        console.log(i, j, k, ++roomsCount);
+        ++roomsCount;
     console.log(delta() + 'rooms count... ' + roomsCount);
 
   var timer = setInterval(function () {
@@ -179,7 +180,8 @@
                 site_id: groups[group_id].sites[i].site_id,
                 location_id: groups[group_id].sites[i].locations[j].location_id,
                 room_id: groups[group_id].sites[i].locations[j].rooms[k].room_id,
-                status: 1};
+                status: 1,
+                updated_at: toDateTimeString().slice(0, 19)};
             //console.log(delta() + 'room changed 1... %j', obj);
             io.emit('room changed', obj);
             setTimeout(function () {
