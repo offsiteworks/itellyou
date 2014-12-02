@@ -18,7 +18,6 @@
 <body  class="pages">
 <h3 align="center"><%= title %></h3>
 <div id="conn-count" class="unknown">オンライン接続数</div>
-<pre id="console-output"></pre>
 <script>
   var VERSION = <%- JSON.stringify(version) %>;
   var MAX_MESSAGES = <%- max_messages %>;
@@ -39,7 +38,6 @@
   function delta() {
     var prev = currTime; currTime = Date.now();
     return toTimeString() + ms(currTime - prev); }
-  var $consoleOutput = document.getElementById('console-output');
   var $connCount = document.getElementById('conn-count');
 
   function pr(msg) {
@@ -153,6 +151,11 @@
 		light-on</div>
 -->
 </div>
+
+<pre id="console-output"></pre>
+<script>
+  var $consoleOutput = document.getElementById('console-output');
+</script>
 
 </body>
 </html>
