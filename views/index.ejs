@@ -35,7 +35,7 @@
     return m > 0 ? ('            '+ n).slice(-m) : (n + '            ').slice(0, -m);
   }
   function ms(ms) {
-    return pad((ms / 1000).toFixed(3), 12) + '秒 '; }
+    return pad((ms / 1000).toFixed(3), 12) + ' sec '; }
   function delta() {
     var prev = currTime; currTime = Date.now();
     return toTimeString() + ms(currTime - prev); }
