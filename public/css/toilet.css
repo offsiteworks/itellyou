@@ -6165,16 +6165,16 @@ button.close {
 }
 .toilet-base {
   text-align: center;
-  font-size: 3em;
+  font-size: 2em;
 }
 .toilet-position {
   text-align: center;
-  font-size: 3em;
+  font-size: 2em;
   color: #777777;
 }
 .toilet-status {
   text-align: center;
-  font-size: 3em;
+  font-size: 2em;
   color: white;
   border-radius: 6px;
 }
@@ -6183,7 +6183,7 @@ button.close {
 }
 .toilet-occupied {
   text-align: center;
-  font-size: 3em;
+  font-size: 2em;
   color: white;
   border-radius: 6px;
   background-color: red;
@@ -6193,7 +6193,7 @@ button.close {
 }
 .toilet-empty {
   text-align: center;
-  font-size: 3em;
+  font-size: 2em;
   color: white;
   border-radius: 6px;
   background-color: green;
@@ -6203,7 +6203,7 @@ button.close {
 }
 .toilet-unknown {
   text-align: center;
-  font-size: 3em;
+  font-size: 2em;
   color: white;
   border-radius: 6px;
   background-color: gray;
@@ -6213,12 +6213,12 @@ button.close {
 }
 .toilet-light-on {
   text-align: center;
-  font-size: 3em;
+  font-size: 2em;
   color: orange;
 }
 .toilet-light-off {
   text-align: center;
-  font-size: 3em;
+  font-size: 2em;
   color: gray;
 }
 .toilet-floor-separator {
