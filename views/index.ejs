@@ -95,6 +95,7 @@
   socket.on('room changed', function (data) {
     pr('room changed:' + JSON.stringify(data));
     var $room = $rooms[data.room_id];
+    if (!$room) return; // 本当は対応が必要
     while ($room.lastChild) $room.removeChild($room.lastChild);
     $room.className = 'toilet-' + (data.status ? 'occupied': 'empty');
     var div = document.createElement('div');
