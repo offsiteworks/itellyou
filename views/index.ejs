@@ -80,7 +80,8 @@
           var room = loc.rooms[k];
           pr([group.name, site.name, loc.name, room.name].join(' - '));
           rooms[room.room_id] = room;
-          $rooms[room.room_id] = $('#' + room.room_id);
+          //$rooms[room.room_id] = $('#' + room.room_id);
+          $rooms[room.room_id] = document.getElementById(room.room_id);
         }
       }
     }
@@ -93,7 +94,17 @@
   // 部屋が更新された
   socket.on('room changed', function (data) {
     pr('room changed:' + JSON.stringify(data));
-    //dispCount(data);
+    var $room = $rooms[data.room_id];
+    while ($room.lastChild) $room.removeChild($room.lastChild);
+    $room.className = 'toilet-' + (data.status ? 'occupied': 'empty');
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(data.status ? 'used!': 'empty!'));
+    $room.appendChild(div); // dom
+    var div = document.createElement('div');
+    div.className = "toilet-time";
+    div.appendChild(document.createTextNode(data.updated_at));
+    $room.appendChild(div); // dom
+    //$rooms[data.room_id].append(div); // jquery
   });
   // ユーザー切断を受信
   socket.on('user disconnected', function (data) {
@@ -111,9 +122,9 @@
     if (data && data.hasOwnProperty('conn_count')) {
       var connCount = data.conn_count;
       $connCount.innerHTML = 'オンライン接続数: ' + connCount +
-        (connCount === 0 ? ' - 切断されています' :
-         connCount === 1 ? ' - あなたひとりだけです' :
-                           ' - あなた以外に何人かいます' ) + VERSION;
+        (connCount === 0 ? ' - 切断されています ' :
+         connCount === 1 ? ' - あなたひとりだけです ' :
+                           ' - あなた以外に何人かいます ' ) + VERSION;
       // $connCount.style.backgroundColor = connCount ? 'green' : 'red';
       $connCount.className = connCount ? 'online' : 'offline';
     }
@@ -141,27 +152,30 @@
        id="<%- site.site_id %>"
        style="display:<%- siteSelected === site ? 'inline-block': 'none' %>">
 <%   for (var j in site.locations) {
-       var loc = site.locations[j];
-       if (j !== 0) { %>
+       var loc = site.locations[j]; %>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <hr class="toilet-floor-separator" />
     </div>
-<%     } %>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <div class="col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-position"
-           id="<%- loc.location_id %>"><%= loc.name %></div>
+         id="<%- loc.location_id %>"><%= loc.name %></div>
 <%     for (var k in loc.rooms) {
          var room = loc.rooms[k]; %>
-      <div class="col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-<%- room.status ? 'occupied' : 'empty' %>"
-           id="<%- room.room_id %>">
-        <div><%= room.status ? 'used!' : 'empty!' %></div>
-        <div class="toilet-time">2014/11/18 20:04:54</div>
+      <div class="col-xs-3 col-sm-3 col-md-3col-lg-3">
+        <div class="toilet-<%- room.status ? 'occupied' : 'empty' %>"
+             id="<%- room.room_id %>">
+          <div><%= room.status ? 'used!' : 'empty!' %></div>
+          <div class="toilet-time"><%= room.updated_at %></div>
+        </div>
       </div>
-<%     } %>
+<%     } // rooms %>
     </div>
-<%   } %>
+<%   } // locations %>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <hr class="toilet-floor-separator" />
+    </div>
   </div>
-<% } %>
+<% } // sites %>
 
 <!--
 	<div class=" col-xs-3 col-sm-3 col-md-3col-lg-3 toilet-light-off">
@@ -171,15 +185,12 @@
 -->
 </div>
 
-<script>
-  var rooms = {};
-  for 
-</script>
-
+<!--
 <pre id="console-output"></pre>
 <script>
   $consoleOutput = document.getElementById('console-output');
 </script>
+-->
 
 </body>
 </html>

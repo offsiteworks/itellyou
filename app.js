@@ -5,8 +5,8 @@
 
   console.log();
 
-  var VERSION = 'v0.0.0';
-  var MAX_MESSAGES = 10;
+  var VERSION = 'v0.0.1';
+  var MAX_MESSAGES = 4;
   var PORT = process.env.PORT || 3000;
   var currTime = Date.now(); // or new Date().getTime();
 
@@ -164,34 +164,43 @@
   var roomsCount = 0;
   for (var i in groups[group_id].sites)
     for (var j in groups[group_id].sites[i].locations)
-      for (var k in groups[group_id].sites[i].locations[j].rooms)
+      for (var k in groups[group_id].sites[i].locations[j].rooms) {
         ++roomsCount;
+        groups[group_id].sites[i].locations[j].rooms[k].updated_at = toDateTimeString().slice(0, 19);
+      }
     console.log(delta() + 'rooms count... ' + roomsCount);
 
   var timer = setInterval(function () {
     var n = roomsCount;
     var m = (Math.random() * n) | 0;
     //console.log(delta() + 'interval...', n, m);
-    for (var i in groups[group_id].sites)
-      for (var j in groups[group_id].sites[i].locations)
-        for (var k in groups[group_id].sites[i].locations[j].rooms)
+    for (var i in groups[group_id].sites) {
+      var site = groups[group_id].sites[i];
+      for (var j in site.locations) {
+        var loc = site.locations[j];
+        for (var k in loc.rooms) {
+          var room = loc.rooms[k];
           if (--n === m) {
+            room.status = 1;
+            room.updated_at = toDateTimeString().slice(0, 19);
             var obj = {group_id: group_id,
-                site_id: groups[group_id].sites[i].site_id,
-                location_id: groups[group_id].sites[i].locations[j].location_id,
-                room_id: groups[group_id].sites[i].locations[j].rooms[k].room_id,
-                status: 1,
-                updated_at: toDateTimeString().slice(0, 19)};
-            //console.log(delta() + 'room changed 1... %j', obj);
+                site_id: site.site_id,
+                location_id: loc.location_id,
+                room_id: room.room_id,
+                status: room.status,
+                updated_at: room.updated_at };
             io.emit('room changed', obj);
-            setTimeout(function () {
-              obj.status = 0;
-              //console.log(delta() + 'room changed 2... %j', obj);
+            setTimeout(function (room, obj) {
+              room.status = obj.status = 0;
+              room.updated_at = obj.updated_at = toDateTimeString().slice(0, 19);
               io.emit('room changed', obj);
-            }, 5500);
+            }, 7500, room, obj);
             break;
           }
-  }, 3000);
+        }
+      }
+    }
+  }, 2000);
 
   ControlC(
     function () {
