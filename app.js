@@ -160,13 +160,50 @@
     console.log(delta() + 'exited...');
   });
 
+  var roomsCount = 0;
+  for (var i in groups[group_id].sites)
+    for (var j in groups[group_id].sites[i].locations)
+      for (var k in groups[group_id].sites[i].locations[j].rooms)
+        console.log(i, j, k, ++roomsCount);
+    console.log(delta() + 'rooms count... ' + roomsCount);
+
+  var timer = setInterval(function () {
+    var n = roomsCount;
+    var m = (Math.random() * n) | 0;
+    //console.log(delta() + 'interval...', n, m);
+    for (var i in groups[group_id].sites)
+      for (var j in groups[group_id].sites[i].locations)
+        for (var k in groups[group_id].sites[i].locations[j].rooms)
+          if (--n === m) {
+            var obj = {group_id: group_id,
+                site_id: groups[group_id].sites[i].site_id,
+                location_id: groups[group_id].sites[i].locations[j].location_id,
+                room_id: groups[group_id].sites[i].locations[j].rooms[k].room_id,
+                status: 1};
+            //console.log(delta() + 'room changed 1... %j', obj);
+            io.emit('room changed', obj);
+            setTimeout(function () {
+              obj.status = 0;
+              //console.log(delta() + 'room changed 2... %j', obj);
+              io.emit('room changed', obj);
+            }, 5500);
+            break;
+          }
+  }, 3000);
+
   ControlC(
     function () {
       console.log(delta() + 'control-c...');
       io.emit('broadcast', {conn_count: connCount, msg: 'control-c'});
     },
-    function () { shutdown(); },
-    function () {  }
+    function () {
+      console.log(delta() + 'control-c twice... shutdown...');
+      shutdown();
+      clearInterval(timer);
+    },
+    function () {
+      console.log(delta() + 'control-c too many... ignore...');
+    }
   );
 
 })();
