@@ -58,7 +58,7 @@
 </script>
 <script src="/socket.io/socket.io.js"></script>
 <script>
-  var socket = io.connect('http://localhost');
+  var socket = io.connect(document.location.href);
   // 最初の電文を受信
   socket.on('first', function (data) {
     dispCount(data);
