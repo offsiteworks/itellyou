@@ -10,14 +10,26 @@ module.exports = {
       site_id: "site-12345",
       name: "RS本社ビル",
       locations: [{
-        location_id: "loc-123",
-        name: "2F男用",
+        location_id: "loc-301",
+        name: "3F男用",
         rooms: [{
-          room_id: "room-876",
+          room_id: "room-311",
           name: "1",
           status: 0,
         }, {
-          room_id: "room-879",
+          room_id: "room-312",
+          name: "2",
+          status: 1,
+        }],
+      }, {
+        location_id: "loc-201",
+        name: "2F男用",
+        rooms: [{
+          room_id: "room-211",
+          name: "1",
+          status: 0,
+        }, {
+          room_id: "room-212",
           name: "2",
           status: 1,
         }],
@@ -26,14 +38,14 @@ module.exports = {
       site_id: "site-12346",
       name: "別館",
       locations: [{
-        location_id: "loc-124",
-        name: "3F男用",
+        location_id: "loc-501",
+        name: "5F男用",
         rooms: [{
-          room_id: "room-877",
+          room_id: "room-511",
           name: "A",
           status: 0,
         }, {
-          room_id: "room-880",
+          room_id: "room-512",
           name: "B",
           status: 1,
         }],
