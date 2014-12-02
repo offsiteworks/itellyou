@@ -37,6 +37,7 @@
     "url": "https://github.com/offsiteworks/itellyou.git"
   },
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "LightSpeedC",
