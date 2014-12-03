@@ -71,6 +71,7 @@
   app.get('/', function (req, res) {
     res.setHeader('Content-Type', 'text/html; charset=UTF-8');
     res.setHeader('Cahche-Control', 'private, no-store, no-cache, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
     res.render('index', {
         title: 'トイレ空いてるよ',
         version: VERSION, 
