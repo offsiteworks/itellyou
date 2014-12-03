@@ -46,6 +46,10 @@
   function delta() {
     var prev = currTime; currTime = Date.now();
     return toTimeString() + ms(currTime - prev); }
+  function httpDate(d) {
+    var s = d + '';
+    return s.slice(0, 3)+ ', ' + s.slice(8, 10) + ' ' + s.slice(4, 7) + ' ' + s.slice(11, 24) + ' GMT';
+  }
 
   var app = express();
 
@@ -76,6 +80,7 @@
   app.get('/', function (req, res) {
     for (var i in headers)
       res.setHeader(i, headers[i]);
+    res.setHeader('Last-Modified', httpDate(new Date()));
     res.render('index', {
         title: 'トイレ空いてるよ',
         version: VERSION, 
@@ -91,6 +96,7 @@
   app.get('/test1', function (req, res) {
     for (var i in headers)
       res.setHeader(i, headers[i]);
+    res.setHeader('Last-Modified', httpDate(new Date()));
     res.writeHead(200, {'Content-Type': 'text/html; charset=UTF-8'});
     res.end('Date: ' + (new Date()));
   });
