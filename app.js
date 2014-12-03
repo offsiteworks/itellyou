@@ -5,7 +5,7 @@
 
   console.log();
 
-  var VERSION = 'v0.0.1';
+  var VERSION = 'v0.0.0';
   var MAX_MESSAGES = 4;
   var PORT = process.env.PORT || 3000;
   var currTime = Date.now(); // or new Date().getTime();
