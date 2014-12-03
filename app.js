@@ -68,11 +68,14 @@
   });
   console.log(delta() + 'listening starting...');
 
+  var headers = {'Content-Type': 'text/html; charset=UTF-8',
+    'Cahche-Control': 'private, no-store, no-cache, must-revalidate',
+    'Pragma': 'no-cache',
+    'Expires': 'Thu, 01 Dec 1994 16:00:00 GMT'};
+
   app.get('/', function (req, res) {
-    res.setHeader('Content-Type', 'text/html; charset=UTF-8');
-    res.setHeader('Cahche-Control', 'private, no-store, no-cache, must-revalidate');
-    res.setHeader('Pragma', 'no-cache');
-    res.setHeader('Expires', 'Thu, 01 Dec 1994 16:00:00 GMT');
+    for (var i in headers)
+      res.setHeader(i, headers[i]);
     res.render('index', {
         title: 'トイレ空いてるよ',
         version: VERSION, 
@@ -83,6 +86,13 @@
     //var str = function () {/**/}.toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
     //res.end(str.replace("'VERSION'", JSON.stringify(VERSION))
     //           .replace("'MAX_MESSAGES'", JSON.stringify(MAX_MESSAGES)));
+  });
+
+  app.get('/test1', function (req, res) {
+    for (var i in headers)
+      res.setHeader(i, headers[i]);
+    res.writeHead(200, {'Content-Type': 'text/html; charset=UTF-8'});
+    res.end('Date: ' + (new Date()));
   });
 
   // catch 404 and forward to error handler
