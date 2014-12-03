@@ -50,6 +50,9 @@
     var s = d + '';
     return s.slice(0, 3)+ ', ' + s.slice(8, 10) + ' ' + s.slice(4, 7) + ' ' + s.slice(11, 24) + ' GMT';
   }
+  function toJST() {
+    return toDateTimeString(new Date(Date.now() + 9000 * 3600)).slice(0, 19);
+  }
 
   var app = express();
 
@@ -186,7 +189,7 @@
     for (var j in groups[group_id].sites[i].locations)
       for (var k in groups[group_id].sites[i].locations[j].rooms) {
         ++roomsCount;
-        groups[group_id].sites[i].locations[j].rooms[k].updated_at = toDateTimeString().slice(0, 19);
+        groups[group_id].sites[i].locations[j].rooms[k].updated_at = toJST();
       }
     console.log(delta() + 'rooms count... ' + roomsCount);
 
@@ -202,7 +205,7 @@
           var room = loc.rooms[k];
           if (--n === m) {
             room.status = 1;
-            room.updated_at = toDateTimeString().slice(0, 19);
+            room.updated_at = toJST();
             var obj = {group_id: group_id,
                 site_id: site.site_id,
                 location_id: loc.location_id,
@@ -212,7 +215,7 @@
             io.emit('room changed', obj);
             setTimeout(function (room, obj) {
               room.status = obj.status = 0;
-              room.updated_at = obj.updated_at = toDateTimeString().slice(0, 19);
+              room.updated_at = obj.updated_at = toJST();
               io.emit('room changed', obj);
             }, 7500, room, obj);
             break;
