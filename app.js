@@ -69,6 +69,8 @@
   console.log(delta() + 'listening starting...');
 
   app.get('/', function (req, res) {
+    res.setHeader('Content-Type', 'text/html; charset=UTF-8');
+    res.setHeader('Cahche-Control', 'private, no-store, no-cache, must-revalidate');
     res.render('index', {
         title: 'トイレ空いてるよ',
         version: VERSION, 
