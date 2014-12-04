@@ -94,21 +94,28 @@
     pr('broadcast:' + JSON.stringify(data));
     dispCount(data);
   });
+
+  var roomChangedData = [];
   // 部屋が更新された
   socket.on('room changed', function (data) {
     pr('room changed:' + JSON.stringify(data));
     var $room = $rooms[data.room_id];
+    roomChangedData.push(data);
     if (!$room) return; // 本当は対応が必要
-    while ($room.lastChild) $room.removeChild($room.lastChild);
-    $room.className = 'toilet-' + (data.status ? 'occupied': 'empty');
-    var div = document.createElement('div');
-    div.appendChild(document.createTextNode(data.status ? 'used!': 'empty!'));
-    $room.appendChild(div); // dom
-    var div = document.createElement('div');
-    div.className = "toilet-time";
-    div.appendChild(document.createTextNode(data.updated_at));
-    $room.appendChild(div); // dom
-    //$rooms[data.room_id].append(div); // jquery
+    while (data = roomChangedData.shift()) {
+      $room = $rooms[data.room_id];
+      if (!$room) return roomChangedData.unshift(data);
+      while ($room.lastChild) $room.removeChild($room.lastChild);
+      $room.className = 'toilet-' + (data.status ? 'occupied': 'empty');
+      var div = document.createElement('div');
+      div.appendChild(document.createTextNode(data.status ? 'used!': 'empty!'));
+      $room.appendChild(div); // dom
+      var div = document.createElement('div');
+      div.className = "toilet-time";
+      div.appendChild(document.createTextNode(data.updated_at));
+      $room.appendChild(div); // dom
+      //$rooms[data.room_id].append(div); // jquery
+    }
   });
   // ユーザー切断を受信
   socket.on('user disconnected', function (data) {
