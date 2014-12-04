@@ -76,8 +76,8 @@
   console.log(delta() + 'listening starting...');
 
   var headers = {'Content-Type': 'text/html; charset=UTF-8',
-    //'Cahche-Control': 'private, no-store, no-cache, must-revalidate',
-    //'Pragma': 'no-cache',
+    'Cahche-Control': 'private, no-store, no-cache, must-revalidate',
+    'Pragma': 'no-cache',
     'Expires': 'Thu, 01 Dec 1994 16:00:00 GMT'};
 
   app.get('/', function (req, res) {
