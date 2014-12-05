@@ -1,0 +1,19 @@
+title Sequence https://www.websequencediagrams.com/
+
+Web クライアント->+Web サーバー: HTTP GET /
+Web サーバー->-Web クライアント: /views/index.ejs を返す
+
+Web クライアント->+Web サーバー: HTTP GET /js/jquery.js
+Web サーバー->-Web クライアント: /public/js/jquery.js を返す
+
+Web クライアント->+Web サーバー: HTTP GET /socket.io/socket.io.js
+Web サーバー->-Web クライアント: socket.io.js を返す
+
+
+Web クライアント->+Web サーバー: socket.io XMLHttpRequestまたはWebSocketで接続
+Web サーバー-->Web クライアント: イベント broadcast 全員に送信
+Web サーバー->-Web クライアント: イベント first
+
+Web クライアント->+Web サーバー: イベント get group
+Web サーバー->-Web クライアント: イベント response group
+
