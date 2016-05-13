@@ -148,6 +148,7 @@
 		io.emit('broadcast', {conn_count: connCount, version: VERSION, msg: 'new user connected'}); // 全体向け
 
 		// 最初のデータを送信
+		socket.emit('response group', {conn_count: connCount, group: groups[data.group_id]});
 		socket.emit('first', {conn_count: connCount});
 
 		// 他のイベントを受信
@@ -217,13 +218,13 @@
 							room.status = obj.status = 0;
 							room.updated_at = obj.updated_at = toJST();
 							io.emit('room changed', obj);
-						}, 7500, room, obj);
+						}, 10500, room, obj);
 						break;
 					}
 				}
 			}
 		}
-	}, 4000);
+	}, 3000);
 
 	ControlC(
 		function () {
